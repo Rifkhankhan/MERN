@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const HttpError = require('./models/http-error')
 const placesRouter = require('./routes/places-routes')
 const usersRouter = require('./routes/users-routes')
+const authRouter = require('./routes/auth-routes')
 const app = express();
 
 
@@ -14,6 +15,7 @@ app.use(bodyParser.json()); // to get body ,this should be used before routers
 
 app.use('/api/places',placesRouter) // if the route only start with api/places it will render places routes
 app.use('/api/users',usersRouter) // if the route only start with api/places it will render places routes
+app.use('/api/auth',authRouter) // if the route only start with api/places it will render places routes
 
 // for unsupported router error handler 
 
