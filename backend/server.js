@@ -1,57 +1,46 @@
-// npm init 
+// npm init
 //npm install express --save
 //npm install  --save uuid
 // npm install --save-dev nodemon // reload the server whenever something is changed
+
+//Rifkhan1 => L30izkgwI0qByOTT
+
 const express = require('express');
 const bodyParser = require('body-parser');
-const HttpError = require('./models/http-error')
-const placesRouter = require('./routes/places-routes')
-const usersRouter = require('./routes/users-routes')
-const authRouter = require('./routes/auth-routes')
+const HttpError = require('./models/http-error');
+const placesRouter = require('./routes/places-routes');
+const usersRouter = require('./routes/users-routes');
+const authRouter = require('./routes/auth-routes');
+// const mongoRouter = require('./MongoDB/mongo-router')
+const mongooseRouter = require('./Mongoose/mongoose-routes');
 const app = express();
-
 
 app.use(bodyParser.json()); // to get body ,this should be used before routers
 
-app.use('/api/places',placesRouter) // if the route only start with api/places it will render places routes
-app.use('/api/users',usersRouter) // if the route only start with api/places it will render places routes
-app.use('/api/auth',authRouter) // if the route only start with api/places it will render places routes
+app.use('/api/places', placesRouter); // if the route only start with api/places it will render places routes
+app.use('/api/users', usersRouter); // if the route only start with api/places it will render places routes
+app.use('/api/auth', authRouter); // if the route only start with api/places it will render places routes
+// app.use('/api/mongodb',mongoRouter) // if the route only start with api/places it will render places routes
+app.use('/api/mongoose', mongooseRouter); // if the route only start with api/places it will render places routes
 
-// for unsupported router error handler 
+// for unsupported router error handler
 
-app.use((req,res,next)=>{
-  const error = new HttpError('could not find this route..')
-  throw error;
-})
+app.use((req, res, next) => {
+	const error = new HttpError('could not find this route..');
+	throw error;
+});
 
 //after using all routes
-app.use((error,req,res,next)=>{
-  if(res.sendHeader){
-    return next(error)
-  }
-  res.status(error.code || 500).json({message:error.message || 'An Unknown Error Occurred!'})
-})
-
-
+app.use((error, req, res, next) => {
+	if (res.sendHeader) {
+		return next(error);
+	}
+	res
+		.status(error.code || 500)
+		.json({ message: error.message || 'An Unknown Error Occurred!' });
+});
 
 app.listen(5000); // start Node + Express server on port 5000
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -73,7 +62,6 @@ app.listen(5000); // start Node + Express server on port 5000
 // 	);
 //   next();
 // });
-
 
 /*
 const express = require('express');

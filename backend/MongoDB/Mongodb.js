@@ -1,44 +1,45 @@
 // npm install --save mongodb
-// const MongoClient = require('mongodb').MongoClient
-// const url = '';
+// npm install --save mongoose
+const MongoClient = require('mongodb').MongoClient;
+const url =
+	'mongodb+srv://Rifkhan:rifkhan123@mern.fjwnop0.mongodb.net/mern?retryWrites=true&w=majority';
 
 const createPlace = async (req, res, next) => {
-    // const newPlace = {
-    //     name:req.body.name,
-    // }
+	const newPlace = {
+		name: req.body.name
+	};
 
-    // const client = new MongoClient(url)
-    
-    // try{
-    //     await client.connect()
-    //     const db  = client.db()
-    //     const result = db.collection('places').insertOne(newPlace) 
-    // }
-    // catch (error){
-    //     return res.json('error')
-    // }
+	const client = new MongoClient(url);
+	let result;
+	try {
+		await client.connect();
+		const db = client.db();
+		result = db.collection('places').insertOne(newPlace);
+	} catch (error) {
+		return res.json('error');
+	}
 
-    // client.close()
+	client.close();
 
-    // res.json(newPlace)
+	res.json(newPlace);
 };
 
-const getPlace = async (req, res, next) => {
-    // const client = new MongoClient(url)
+const getPlaces = async (req, res, next) => {
+	const client = new MongoClient(url);
+	let result;
+	res.json(client);
+	try {
+		await client.connect();
+		const db = client.db();
+		result = db.collection('places').find().toArray();
+	} catch (error) {
+		return res.json('error');
+	}
 
-    // try{
-    //     await client.connect()
-    //     const db  = client.db()
-    //     await const result = db.collection('products').asArray()
-    // } catch (error){
-        //     return res.json('error')
-        // }
-    
-        // client.close()
-    
-        // res.json(result)
+	client.close();
+
+	res.json(result);
 };
 
 exports.createPlace = createPlace;
-exports.getPlace = getPlace;
-
+exports.getPlaces = getPlaces;
