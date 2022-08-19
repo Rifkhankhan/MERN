@@ -1,10 +1,14 @@
 const express = require('express');
 
-const MongoController = require('./mongoose');
+const MongooseController = require('./mongoose-controller');
 
 const router = express.Router();
 
-router.post('/create', MongoController.createdUser);
-// router.get('/', MongoController.getPlaces);
+router.post('/create', MongooseController.createdUser);
+router.get('/', MongooseController.getUsers);
+router.get('/:userId', MongooseController.getUserById);
+router.patch('/edit/:userId', MongooseController.updateUser);
+router.delete('/delete/:userId', MongooseController.deleteUser);
+router.post('/signup', MongooseController.signup);
 
 module.exports = router;

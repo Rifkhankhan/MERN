@@ -2,11 +2,14 @@
 //npm install express --save
 //npm install  --save uuid
 // npm install --save-dev nodemon // reload the server whenever something is changed
-
+// npm install mongoose-unique-validator //  like email
 //Rifkhan1 => L30izkgwI0qByOTT
+//rifkhan => L30izkgwI0qByOTT
+//admin => admin123
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 const HttpError = require('./models/http-error');
 const placesRouter = require('./routes/places-routes');
 const usersRouter = require('./routes/users-routes');
@@ -40,14 +43,19 @@ app.use((error, req, res, next) => {
 		.json({ message: error.message || 'An Unknown Error Occurred!' });
 });
 
+//connect mongodb
+mongoose
+	.connect(
+		'mongodb+srv://rifkhan:L30izkgwI0qByOTT@cluster0.t1bmyvd.mongodb.net/?retryWrites=true&w=majority'
+	)
+	.then(() => {
+		console.log('connected to Database');
+	})
+	.catch(() => {
+		console.log('something wrong Connection');
+	});
+
 app.listen(5000); // start Node + Express server on port 5000
-
-
-
-
-
-
-
 
 // // CORS Headers => Required for cross-origin/ cross-server communication
 // app.use((req, res, next) => { //middleware
