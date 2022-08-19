@@ -10,5 +10,6 @@ router.get('/:userId', MongooseController.getUserById);
 router.patch('/edit/:userId', MongooseController.updateUser);
 router.delete('/delete/:userId', MongooseController.deleteUser);
 router.post('/signup', MongooseController.signup);
+router.post('/signin', MongooseController.signin);
 
 module.exports = router;
